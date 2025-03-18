@@ -1,0 +1,6 @@
+.empty-input {
+	border: 1px solid #ff3838;
+	&::placeholder {
+		color: #ff3838;
+	}
+}

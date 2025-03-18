@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Homework module 10</title>
+		<link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
+	</head>
+	<body>
+		<header>
+			<nav class="navbar navbar-expand-lg bg-body-tertiary">
+				<div class="container-xxl">
+					<a class="navbar-brand" href="#">Home</a>
+					<button
+						class="navbar-toggler"
+						type="button"
+						data-bs-toggle="collapse"
+						data-bs-target="#navbarSupportedContent"
+						aria-controls="navbarSupportedContent"
+						aria-expanded="false"
+						aria-label="Toggle navigation"
+					>
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+						<ul class="navbar-nav mb-2 mb-lg-0">
+							<li class="nav-item">
+								<a class="nav-link" href="#">Это</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Наш</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Хедер</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</header>
+		<main>
+			<section>
+				<div class="container-xxl text-center" style="max-width: 660px">
+					<h1 class="mb-3">Добро пожаловать!</h1>
+					<p>Это проект с использованием Bootstrap. Нажмите на кнопку ниже, чтобы создать новый товар</p>
+					<button
+						type="button"
+						class="btn btn-primary"
+						data-bs-toggle="modal"
+						data-bs-target="#modalCreateProduct"
+					>
+						Создать новый товар
+					</button>
+				</div>
+			</section>
+			<section>
+				<div class="container-xxl">
+					<div
+						id="productsLoading"
+						class="d-flex align-items-center flex-column mx-auto"
+						style="max-width: 660px"
+					>
+						<div class="spinner-border mb-2" aria-hidden="true" style="width: 3rem; height: 3rem"></div>
+						<p role="status" class="fs-3">Загрузка...</p>
+					</div>
+					<div id="productsList" hidden>
+						<h2 class="text-center mb-4">Список товаров</h2>
+						<div class="filter my-5">
+							<button
+								class="btn btn-outline-primary mb-2 position-relative"
+								id="openFilter"
+								type="button"
+								data-bs-toggle="collapse"
+								data-bs-target="#collapseExample"
+								aria-expanded="false"
+								aria-controls="collapseExample"
+							>
+								Фильтр
+								<span id="filter__applied"></span>
+							</button>
+							<div class="accordion collapse" id="collapseExample">
+								<form id="filterForm">
+									<div class="accordion-item">
+										<h2 class="accordion-header">
+											<button
+												class="accordion-button"
+												type="button"
+												data-bs-toggle="collapse"
+												data-bs-target="#panelsStayOpen-collapseOne"
+												aria-expanded="true"
+												aria-controls="panelsStayOpen-collapseOne"
+											>
+												Тип
+											</button>
+										</h2>
+										<div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+											<div class="accordion-body p-0">
+												<label class="filter__label form-check-label">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="typeProduct"
+														value="Кроссовки"
+													/>
+													Кроссовки
+												</label>
+												<label class="filter__label form-check-label">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="typeProduct"
+														value="Ботинки"
+													/>
+													Ботинки
+												</label>
+												<label class="filter__label form-check-label">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="typeProduct"
+														value="Туфли"
+													/>
+													Туфли
+												</label>
+												<label class="filter__label form-check-label">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="typeProduct"
+														value="Сандали"
+													/>
+													Сандали
+												</label>
+											</div>
+										</div>
+									</div>
+									<div class="accordion-item">
+										<h2 class="accordion-header">
+											<button
+												class="accordion-button collapsed"
+												type="button"
+												data-bs-toggle="collapse"
+												data-bs-target="#panelsStayOpen-collapseTwo"
+												aria-expanded="false"
+												aria-controls="panelsStayOpen-collapseTwo"
+											>
+												Пол
+											</button>
+										</h2>
+										<div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+											<div class="accordion-body p-0">
+												<label class="filter__label form-check-label">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="genderProduct"
+														value="Мужской"
+													/>
+													Мужской
+												</label>
+												<label class="filter__label form-check-label">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="genderProduct"
+														value="Женский"
+													/>
+													Женский
+												</label>
+											</div>
+										</div>
+									</div>
+									<div class="accordion-item">
+										<h2 class="accordion-header">
+											<button
+												class="accordion-button collapsed"
+												type="button"
+												data-bs-toggle="collapse"
+												data-bs-target="#panelsStayOpen-collapseThree"
+												aria-expanded="false"
+												aria-controls="panelsStayOpen-collapseThree"
+											>
+												Размер
+											</button>
+										</h2>
+										<div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+											<div class="accordion-body p-0">
+												<label class="filter__label form-check-label">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="sizeProduct"
+														value="32"
+													/>
+													32
+												</label>
+												<label class="filter__label form-check-label">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="sizeProduct"
+														value="33"
+													/>
+													33
+												</label>
+												<label class="filter__label form-check-label">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="sizeProduct"
+														value="34"
+													/>
+													34
+												</label>
+												<label class="filter__label form-check-label">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="sizeProduct"
+														value="35"
+													/>
+													35
+												</label>
+												<label class="filter__label form-check-label">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="sizeProduct"
+														value="36"
+													/>
+													36
+												</label>
+												<label class="filter__label form-check-label">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="sizeProduct"
+														value="37"
+													/>
+													37
+												</label>
+												<label class="filter__label form-check-label">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="sizeProduct"
+														value="38"
+													/>
+													38
+												</label>
+												<label class="filter__label form-check-label">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="sizeProduct"
+														value="39"
+													/>
+													39
+												</label>
+												<label class="filter__label form-check-label">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="sizeProduct"
+														value="40"
+													/>
+													40
+												</label>
+												<label class="filter__label form-check-label">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="sizeProduct"
+														value="41"
+													/>
+													41
+												</label>
+												<label class="filter__label form-check-label">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="sizeProduct"
+														value="42"
+													/>
+													42
+												</label>
+												<label class="filter__label form-check-label">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="sizeProduct"
+														value="43"
+													/>
+													43
+												</label>
+												<label class="filter__label form-check-label">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="sizeProduct"
+														value="44"
+													/>
+													44
+												</label>
+												<label class="filter__label form-check-label">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="sizeProduct"
+														value="45"
+													/>
+													45
+												</label>
+												<label class="filter__label form-check-label">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="sizeProduct"
+														value="46"
+													/>
+													46
+												</label>
+												<label class="filter__label form-check-label">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="sizeProduct"
+														value="47"
+													/>
+													47
+												</label>
+												<label class="filter__label form-check-label">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="sizeProduct"
+														value="48"
+													/>
+													48
+												</label>
+											</div>
+										</div>
+									</div>
+									<div class="accordion-item">
+										<h2 class="accordion-header">
+											<button
+												class="accordion-button collapsed"
+												type="button"
+												data-bs-toggle="collapse"
+												data-bs-target="#panelsStayOpen-collapseFour"
+												aria-expanded="false"
+												aria-controls="panelsStayOpen-collapseFour"
+											>
+												Цвет
+											</button>
+										</h2>
+										<div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse">
+											<div class="accordion-body p-0">
+												<label class="filter__label form-check-label" style="color: #c7ac8e">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="colorProduct"
+														value="Бежевый"
+													/>
+													Бежевый
+												</label>
+												<label class="filter__label form-check-label" style="color: #b6b6b6">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="colorProduct"
+														value="Белый"
+													/>
+													Белый
+												</label>
+												<label class="filter__label form-check-label" style="color: #5b9dff">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="colorProduct"
+														value="Голубой"
+													/>
+													Голубой
+												</label>
+												<label class="filter__label form-check-label" style="color: #dde000">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="colorProduct"
+														value="Жёлтый"
+													/>
+													Жёлтый
+												</label>
+												<label class="filter__label form-check-label" style="color: #00b400">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="colorProduct"
+														value="Зелёный"
+													/>
+													Зелёный
+												</label>
+												<label class="filter__label form-check-label" style="color: #913c0b">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="colorProduct"
+														value="Коричневый"
+													/>
+													Коричневый
+												</label>
+												<label class="filter__label form-check-label" style="color: #ff3838">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="colorProduct"
+														value="Красный"
+													/>
+													Красный
+												</label>
+												<label class="filter__label form-check-label" style="color: #ffb327">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="colorProduct"
+														value="Оранжевый"
+													/>
+													Оранжевый
+												</label>
+												<label class="filter__label form-check-label" style="color: #ffc0cb">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="colorProduct"
+														value="Розовый"
+													/>
+													Розовый
+												</label>
+												<label class="filter__label form-check-label" style="color: #535353">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="colorProduct"
+														value="Серый"
+													/>
+													Серый
+												</label>
+												<label class="filter__label form-check-label" style="color: #2626ff">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="colorProduct"
+														value="Синий"
+													/>
+													Синий
+												</label>
+												<label class="filter__label form-check-label" style="color: #903aff">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="colorProduct"
+														value="Фиолетовый"
+													/>
+													Фиолетовый
+												</label>
+												<label class="filter__label form-check-label" style="color: #000000">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="colorProduct"
+														value="Чёрный"
+													/>
+													Чёрный
+												</label>
+											</div>
+										</div>
+									</div>
+									<div class="accordion-item">
+										<h2 class="accordion-header">
+											<button
+												class="accordion-button collapsed"
+												type="button"
+												data-bs-toggle="collapse"
+												data-bs-target="#panelsStayOpen-collapseFive"
+												aria-expanded="false"
+												aria-controls="panelsStayOpen-collapseFive"
+											>
+												Сезон
+											</button>
+										</h2>
+										<div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse">
+											<div class="accordion-body p-0">
+												<label class="filter__label form-check-label">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="seasonProduct"
+														value="Лето"
+													/>
+													Лето
+												</label>
+												<label class="filter__label form-check-label">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="seasonProduct"
+														value="Зима"
+													/>
+													Зима
+												</label>
+											</div>
+										</div>
+									</div>
+									<div class="accordion-item">
+										<h2 class="accordion-header">
+											<button
+												class="accordion-button collapsed"
+												type="button"
+												data-bs-toggle="collapse"
+												data-bs-target="#panelsStayOpen-collapseSix"
+												aria-expanded="false"
+												aria-controls="panelsStayOpen-collapseSix"
+											>
+												Материал
+											</button>
+										</h2>
+										<div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse">
+											<div class="accordion-body p-0">
+												<label class="filter__label form-check-label">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="materialProduct"
+														value="Кожа"
+													/>
+													Кожа
+												</label>
+												<label class="filter__label form-check-label">
+													<input
+														class="form-check-input"
+														type="checkbox"
+														name="materialProduct"
+														value="Ткань"
+													/>
+													Ткань
+												</label>
+											</div>
+										</div>
+									</div>
+									<div class="mt-3">
+										<button id="clearFilter" class="btn btn-secondary" type="button">
+											Очистить фильтр
+										</button>
+										<button class="btn btn-primary" id="submitForm" type="submit">Применить</button>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div id="productsGrid" class="grid mx-auto"></div>
+					</div>
+				</div>
+			</section>
+		</main>
+		<!-- Modal form -->
+		<div
+			class="modal fade"
+			tabindex="-1"
+			id="modalCreateProduct"
+			aria-labelledby="exampleModalLabel"
+			aria-hidden="true"
+		>
+			<div class="modal-dialog modal-dialog-centered modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Создать новый продукт</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body" id="modalBodyCreateProduct">
+						<form id="createProductForm">
+							<label for="imageProduct" class="form-label">Картинка</label>
+							<div class="drag-n-drop__wrapper">
+								<div class="drag-n-drop"></div>
+								<div class="drag-n-drop__info text-center mb-4">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="100"
+										height="100"
+										fill="currentColor"
+										class="bi bi-cloud-arrow-up-fill"
+										viewBox="0 0 16 16"
+									>
+										<path
+											d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2m2.354 5.146a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0z"
+										/>
+									</svg>
+									<p class="fs-4 mt-2">Перетащите или нажмите для выбора картинки</p>
+								</div>
+								<input
+									class="drag-n-drop__input"
+									type="file"
+									name="imageProduct"
+									id="imageProduct"
+									style="display: none"
+								/>
+							</div>
+							<label class="form-label" for="nameProduct">Название</label>
+							<input
+								id="nameProduct"
+								class="form-control form-control-md mb-4"
+								type="text"
+								placeholder="Nike airmax..."
+								aria-label=".form-control-lg example"
+								name="nameProduct"
+							/>
+							<label class="form-label" for="priceProduct">Цена в рублях</label>
+							<input
+								id="priceProduct"
+								class="form-control form-control-md mb-4"
+								type="number"
+								placeholder="1000"
+								aria-label=".form-control-lg example"
+								name="priceProduct"
+							/>
+							<label class="form-label" for="typeProduct">Тип</label>
+							<select
+								id="typeProduct"
+								name="typeProduct"
+								class="form-select mb-4"
+								aria-label="Default select example"
+								style="width: max-content"
+							>
+								<option value="Кроссовки">Кроссовки</option>
+								<option value="Ботинки">Ботинки</option>
+								<option value="Туфли">Туфли</option>
+								<option value="Сандали">Сандали</option>
+							</select>
+							<label class="form-label" for="genderProduct">Пол</label>
+							<select
+								id="genderProduct"
+								name="genderProduct"
+								class="form-select mb-4"
+								aria-label="Default select example"
+								style="width: max-content"
+							>
+								<option value="Мужской">Мужской</option>
+								<option value="Женский">Женский</option>
+							</select>
+							<label class="form-label" for="sizeProduct">Размер</label>
+							<select
+								id="sizeProduct"
+								name="sizeProduct"
+								class="form-select mb-4"
+								aria-label="Default select example"
+								style="width: max-content"
+							>
+								<option value="32">32</option>
+								<option value="33">33</option>
+								<option value="34">34</option>
+								<option value="35">35</option>
+								<option value="36">36</option>
+								<option value="37">37</option>
+								<option value="38">38</option>
+								<option value="39">39</option>
+								<option value="40">40</option>
+								<option value="41">41</option>
+								<option value="42">42</option>
+								<option value="43">43</option>
+								<option value="44">44</option>
+								<option value="45">45</option>
+								<option value="46">46</option>
+								<option value="47">47</option>
+								<option value="48">48</option>
+							</select>
+							<label class="form-label" for="colorProduct">Цвет</label>
+							<select
+								id="colorProduct"
+								name="colorProduct"
+								class="form-select mb-4"
+								aria-label="Default select example"
+								style="width: max-content; color: #c7ac8e"
+								data-color-product
+							>
+								<option value="Бежевый" style="color: #c7ac8e">Бежевый</option>
+								<option value="Белый" style="color: #b6b6b6">Белый</option>
+								<option value="Голубой" style="color: #5b9dff">Голубой</option>
+								<option value="Жёлтый" style="color: #dde000">Жёлтый</option>
+								<option value="Зелёный" style="color: #00b400">Зелёный</option>
+								<option value="Коричневый" style="color: #913c0b">Коричневый</option>
+								<option value="Красный" style="color: #ff3838">Красный</option>
+								<option value="Оранжевый" style="color: #ffb327">Оранжевый</option>
+								<option value="Розовый" style="color: #ffc0cb">Розовый</option>
+								<option value="Серый" style="color: #535353">Серый</option>
+								<option value="Синий" style="color: #2626ff">Синий</option>
+								<option value="Фиолетовый" style="color: #903aff">Фиолетовый</option>
+								<option value="Чёрный" style="color: #000000">Чёрный</option>
+							</select>
+							<label class="form-label" for="seasonProduct">Сезон</label>
+							<select
+								id="seasonProduct"
+								name="seasonProduct"
+								class="form-select mb-4"
+								aria-label="Default select example"
+								style="width: max-content"
+							>
+								<option value="Лето">Лето</option>
+								<option value="Зима">Зима</option>
+							</select>
+							<label class="form-label" for="materialProduct">Материал</label>
+							<select
+								id="materialProduct"
+								name="materialProduct"
+								class="form-select mb-4"
+								aria-label="Default select example"
+								style="width: max-content"
+							>
+								<option value="Кожа">Кожа</option>
+								<option value="Ткань">Ткань</option>
+							</select>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button
+							id="closeModalCreateProductButton"
+							type="button"
+							class="btn btn-secondary"
+							data-bs-dismiss="modal"
+						>
+							Закрыть
+						</button>
+						<button type="submit" class="btn btn-primary" form="createProductForm">Создать товар</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Modal form -->
+
+		<!-- Modal lodaing -->
+		<div
+			class="modal fade"
+			id="modalLoading"
+			data-bs-backdrop="static"
+			data-bs-keyboard="false"
+			tabindex="-1"
+			aria-labelledby="staticBackdropLabel"
+			aria-hidden="true"
+		>
+			<div class="modal-dialog modal-dialog-centered" style="height: 500px">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button
+							type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Close"
+							data-close-modal-loading
+							disabled
+						></button>
+					</div>
+					<div class="modal-body" id="modalBodyLoading">
+						<div class="d-flex align-items-center flex-column">
+							<div class="spinner-border mb-2" aria-hidden="true" style="width: 3rem; height: 3rem"></div>
+							<p role="status" class="fs-3">Загрузка...</p>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button
+							type="button"
+							class="btn btn-secondary"
+							data-bs-dismiss="modal"
+							data-close-modal-loading
+							disabled
+						>
+							Закрыть
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Modal lodaing -->
+
+		<!-- Modal remove -->
+		<div
+			id="modalRemove"
+			class="modal fade"
+			data-bs-backdrop="static"
+			data-bs-keyboard="false"
+			tabindex="-1"
+			aria-labelledby="staticBackdropLabel"
+			aria-hidden="true"
+		>
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Удаление товара</h5>
+						<button
+							type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Close"
+							data-close-modal-remove
+						></button>
+					</div>
+					<div id="modalBodyRemove" class="modal-body"></div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-close-modal-remove>
+							Закрыть
+						</button>
+						<button id="removeProductButton" type="button" class="btn btn-danger">Удалить товар</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Modal remove -->
+		<script src="./src/js/main.js" type="module"></script>
+	</body>
+</html>

@@ -1,0 +1,48 @@
+@keyframes errorDragNDropBlock {
+	0% {
+		transform: translateX(0);
+	}
+	20% {
+		transform: translateX(-10px);
+	}
+	40% {
+		transform: translateX(10px);
+	}
+	60% {
+		transform: translateX(-10px);
+	}
+	80% {
+		transform: translateX(10px);
+	}
+	100% {
+		transform: translateX(0);
+	}
+}
+
+.drag-n-drop {
+	position: absolute;
+	inset: 0;
+	cursor: pointer;
+
+	&__wrapper {
+		position: relative;
+	}
+
+	&__info {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		min-height: 270px;
+		padding: 40px;
+		border: 2px dashed currentColor;
+		border-radius: 15px;
+	}
+	&__info svg {
+		flex-shrink: 0;
+	}
+
+	&__error-animation {
+		animation: errorDragNDropBlock 0.4s linear;
+	}
+}
